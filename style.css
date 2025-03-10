@@ -1,4 +1,15 @@
-<style>
+  tr {
+  transition: .3s;
+  }
+tr:hover td {
+  transform: translate(0, -2px);
+  color: rgb(105, 0, 198);
+  border-bottom: 2px solid rgb(105, 0, 198);
+}
+table {
+margin-left: auto;
+  margin-right: auto;
+}
 * {
   font-family: "Comfortaa", sans-serif;
   font-optical-sizing: auto;
@@ -62,4 +73,12 @@ animation: AnimationName 7s ease infinite;
 50%{background-position:100% 50%}
 100%{background-position:0% 50%}
 }
-</style>
+.text {
+   border: 2px solid BLACK;
+   border-radius: 8px;
+   height: 60px;
+   width: 150px;
+   transition: .3s;
+}
+.text:focus {
+  transform: translate(0, -3px);

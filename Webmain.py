@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, request, redirect, render_template_string, flash, session, redirect
+from flask import Flask, render_template, url_for, request, redirect, render_template_string, flash, session, redirect, abort
 from random import choice
 
 app = Flask(__name__)
@@ -48,15 +48,17 @@ def formula():
 @app.route("/login", methods=["POST", "GET"])
 def login():
     if "userLogged" in session:
-        return redirect("profile/session['userLogged']")
-    elif request.method == "POST" and request.form["login"] == "rinde" and request.form["password"] == "123":
+        return redirect(url_for("profile", login=session["userLogged"]))
+    elif request.method == "POST" and request.form["login"] == "rind1" and request.form["password"] == "123":
         session["userLogged"] = request.form["login"]
-        return redirect("profile/session['userLogged']")
+        return redirect(url_for("profile", login=session["userLogged"]))
     return render_template("login.html")
 
 @app.route("/profile/<login>")
 def profile(login):
-    return f"Профиль пользователя: {login}"
+    if "userLogged" not in session or session["userLogged"] != login:
+        abort(404)
+    return render_template("account.html", name=login)
 
 @app.route("/contact")
 def contact():
@@ -65,8 +67,12 @@ def contact():
 @app.route("/tech", methods=["POST", "GET"])
 def tech():
     if request.method == "POST":
-        flash("Спасибо за отзыв")
+        if len(request.form["name"]) > 2:
+            flash("Спасибо за отзыв")
+        else:
+            flash("Ошибка отправки")
     return render_template("tech.html")
+
 @app.errorhandler(404)
 def no_page(error):
     return render_template("404.html")
