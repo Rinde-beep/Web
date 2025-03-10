@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/style.css">
+  <title>Сила</title>
+  {% set nut = {18:"Эска", 15:"Пета", 12:"Пета", 9:"Гига", 6:"Мега", 3:"кило", 2:"Гекто", 1:"Дека", -1:"Деци", -2:"Санти", -3:"Милли", -6:"Микро", -9:"Нано", -12:"Пико", -15:"Фемто", -18:"Атто"} %}
+</head>
+<body>
+<form action="/contact">
+  <input type="submit" class="btn-new" value="О нас">
+  </form>
+<h1>Мы притягиваемся с силой</h1><br>
+<h2>{{ F }} ньютон</h2>
+<p>Воу, мы так сильно притягиваемся)</p>
+<p>{{ words }}</p>
+<form action="/">
+  <input type="submit" class="btn-new" value="Назад">
+  </form>
+  <table>
+    <TR><td>0.1</td><td>Деци</td></TR>
+    <TR><td>0.01</td><td>Санти</td></TR>
+    <TR><td>0.001</td><td>Милли</td></TR>
+    <TR><td>0.000001</td><td>Микро</td></TR>
+    <TR><td>0.000000001</td><td>Нано</td></TR>
+    <TR><td>0.000000000001</td><td>Пико</td></TR>
+    <TR><td>0.000000000000001</td><td>Фемто</td></TR>
+    <TR><td>0.000000000000000001</td><td>Атто</td></TR>
+  </table>
+
+</body>
+</html>

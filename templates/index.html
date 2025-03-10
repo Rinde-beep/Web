@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Рассчитать</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/style.css">
+</head>
+<body>
+<form action="/contact">
+  <input type="submit" class="btn-new" value="О нас">
+  </form>
+<h1>С какой силой мы притягиваемся?</h1>
+<p>Введите ваши данные:</p>
+<form action="/" method="post">
+    <p><label>Ваш вес:</label> <input type="number" class="texto" name = mass_1 placeholder="В килограммах" required></p>
+    <p><label>Вес вашей половинки:</label> <input type="number" class="texto" name = mass_2 placeholder="В килограммах" required></p>
+    <p><label>Расстояние между вами:</label> <input type="number" class="texto" name = dist placeholder="В метрах" required></p>
+    <p><input type="reset" class = btn-new value="Сбросить"> <input type="submit" class = btn-new value="Рассчитать"></p>
+</form>
+<form action="/tech">
+    <p><input type="submit" class=btn-new value="ТехПоддержка"></p>
+</form>
+<form action="/login">
+    <p><input type="submit" class=btn-new value="Аккаунт"></p>
+</form>
+</body>
+</html>

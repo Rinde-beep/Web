@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Техподдержка</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/style.css">
+</head>
+<body>
+{% for msg in get_flashed_messages() %}
+<div class="flash">{{ msg }}</div>
+{% endfor %}
+<form action="/tech" method="post">
+    <p><label>
+        Ваше имя:
+        <input class="texto" type="text" name="name" placeholder="Иван Иванов">
+    </label></p>
+
+    <p><label>
+        Электронная почта:
+        <input class="texto" type="email" name="email" placeholder="example@email.com">
+    </label></p>
+    <p><label>
+        Отзыв:
+        <textarea class="text" name="comment" placeholder="Что вам понравилось?"></textarea>
+    </label></p>
+    <button class="btn-new" type="submit"> Отправить </button>
+</form>
+<p><form action="/"> <input type="submit" class="btn-new" value="Назад"> </form></p>
+</body>
+</html>
