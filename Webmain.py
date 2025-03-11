@@ -1,7 +1,18 @@
-from flask import Flask, render_template, url_for, request, redirect, render_template_string, flash, session, redirect, abort
+from flask import Flask, render_template, url_for, request, redirect, render_template_string, flash, session, redirect, abort, g
 from random import choice
+from FDataBase import FDataBase
+import os
+import sqlite3
+
+DATABASE = "../dbs/db.db"
+DEBUG = True
+SECRET_KEY = "fsajfdiokpyfhoyh2uhbnpfua"
+
 
 app = Flask(__name__)
+app.config.from_object(__name__)
+app.config.update(dict(DATABASE = os.path.join(app.root_path, "db.db")))
+
 app.config["SECRET_KEY"] = "123jnfpgiujdfgi234123dfgdhytjkiol"
 words = [
 "Ты так красива, что я просто не могу отвести взгляд.", "Твои большие глаза смотрят мне прямо в сердце.", "Ты всегда выглядишь так свежо!",
@@ -47,11 +58,17 @@ def formula():
 
 @app.route("/login", methods=["POST", "GET"])
 def login():
+    db = get_db()
+    print(db)
+    dbase = FDataBase(db)
     if "userLogged" in session:
         return redirect(url_for("profile", login=session["userLogged"]))
-    elif request.method == "POST" and request.form["login"] == "rind1" and request.form["password"] == "123":
+    elif request.method == "POST" and  request.form["password"] == dbase.getPass(request.form["login"]):
+        print(dbase.getPass(request.form["login"]))
         session["userLogged"] = request.form["login"]
         return redirect(url_for("profile", login=session["userLogged"]))
+    elif request.method == "POST" and  request.form["password"] != dbase.getPass(request.form["login"]):
+        flash("Неправильный пароль или логин")
     return render_template("login.html")
 
 @app.route("/profile/<login>")
@@ -76,6 +93,27 @@ def tech():
 @app.errorhandler(404)
 def no_page(error):
     return render_template("404.html")
+
+@app.teardown_appcontext
+def close_db(error):
+    if hasattr(g, "link_db"):
+        g.link_db.close()
+
+def connect_db():
+    conn = sqlite3.connect(app.config["DATABASE"])
+    conn.row_factory = sqlite3.Row
+    return conn
+
+def create_db():
+    db = connect_db()
+    with app.open_resource("sq_db.sql", mode="r") as f:
+        db.cursor().executescript(f.read())
+    db.commit()
+
+def get_db():
+    if not hasattr(g, "link_db"):
+        g.link_db = connect_db()
+    return g.link_db
 
 if __name__ == "__main__":
     app.run(debug=True)
